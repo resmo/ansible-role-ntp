@@ -1,0 +1,25 @@
+---
+- name: ntp | Add the OS specific variables
+  include_vars: "{{ item }}"
+  with_first_found:
+  - "{{ ansible_distribution }}{{ ansible_distribution_major_version }}.yml"
+  - "{{ ansible_distribution }}.yml"
+  - "{{ ansible_os_family }}.yml"
+  tags: [ 'configuration', 'package', 'service', 'ntp' ]
+
+- name: ntp | Installation
+  include_tasks: "{{ ansible_os_family|lower }}.yml"
+
+- name: ntp | Copy the ntp.conf template file
+  template: src=ntp.conf.j2 dest=/etc/ntp.conf
+  notify:
+  - restart ntp
+  tags: [ 'configuration', 'package', 'ntp' ]
+
+- name: Start/stop ntp service
+  service:
+    name: "{{ ntp_service_name }}"
+    state: "{{ ntp_service_state }}"
+    enabled: "{{ ntp_service_enabled }}"
+    pattern: '/ntpd'
+  tags: [ 'service', 'ntp' ]

@@ -1,0 +1,17 @@
+---
+- name: ntp | RedHat | Remove chrony from RedHat 7 Installations to prevent conflict.
+  yum: name=chrony state=absent
+  when: ansible_distribution_major_version|int >= 7
+  register: task_result
+  until: task_result is success
+  retries: 10
+  delay: 2
+  tags: [ 'package', 'ntp' ]
+
+- name: ntp | RedHat | Install the required packages in Redhat derivatives
+  yum: name=ntp state={{ ntp_pkg_state }}
+  register: task_result
+  until: task_result is success
+  retries: 10
+  delay: 2
+  tags: [ 'package', 'ntp' ]

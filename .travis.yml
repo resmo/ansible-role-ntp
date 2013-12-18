@@ -1,0 +1,29 @@
+---
+dist: trusty
+language: python
+services:
+  - docker
+
+before_install:
+  - sudo apt-get -qq update
+
+env:
+  global:
+    - ROLE_NAME: ntp
+  matrix:
+    - MOLECULE_DISTRO: centos/systemd
+      MOLECULE_COMMAND: /usr/sbin/init
+
+install:
+  - pip install testinfra molecule docker
+
+before_script:
+  - cd ../
+  - mv ansible-role-$ROLE_NAME ericsysmin.$ROLE_NAME
+  - cd ericsysmin.$ROLE_NAME
+
+script:
+  - molecule test
+
+notifications:
+  webhooks: https://galaxy.ansible.com/api/v1/notifications/

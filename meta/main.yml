@@ -1,0 +1,47 @@
+---
+galaxy_info:
+  author: ericsysmin
+  role_name: ntp
+  company: Avi Networks
+  description: This role enables users to install and configure ntp on their hosts.
+  license: GPLv2
+  min_ansible_version: 2.4
+  platforms:
+    - name: EL
+      versions:
+        - 5
+        - 6
+        - 7
+    - name: Fedora
+      versions:
+        - 16
+        - 17
+        - 18
+        - 19
+        - 20
+        - 21
+        - 22
+    - name: Ubuntu
+      versions:
+        - precise
+        - quantal
+        - raring
+        - saucy
+    - name: Debian
+      versions:
+        - wheezy
+    - name: SLES
+      versions:
+        - 11
+        - 11SP3
+        - 11SP4
+        - 12
+  galaxy_tags:
+    - system
+    - time
+    - ntp
+    - centos
+    - ubuntu
+    - el
+    - redhat
+dependencies: []

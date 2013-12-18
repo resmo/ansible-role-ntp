@@ -1,0 +1,9 @@
+---
+- name: ntp | Suse | Install the required packages in Suse derivatives
+  zypper: name=ntp state={{ ntp_pkg_state }}
+  when: ansible_os_family == 'Suse'
+  register: task_result
+  until: task_result is success
+  retries: 10
+  delay: 2
+  tags: [ 'package', 'ntp' ]
