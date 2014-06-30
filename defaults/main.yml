@@ -1,5 +1,7 @@
 ---
 ntp_pkg_state: installed
+ntp_pkg_auto_update: yes
+ntp_pkg_cache_valid_time: 3600
 ntp_service_state: started
 ntp_service_enabled: yes
 
@@ -26,6 +28,6 @@ ntp_config_keys: no
 ntp_config_trustedkey: no
 ntp_config_requestkey: no
 ntp_config_controlkey: no
-ntp_config_broadcast: no 
+ntp_config_broadcast: no
 ntp_config_broadcastclient: no
 ntp_config_multicastclient: no
