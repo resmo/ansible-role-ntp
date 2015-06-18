@@ -1,9 +1,10 @@
-ntp
-===
+NTP
+========
 
-[![Build Status](https://travis-ci.org/resmo/ansible-role-ntp.png?branch=master)](https://travis-ci.org/resmo/ansible-role-ntp)
-
+Install and configure NTP
 This role enables users to install and configure ntp on their hosts.
+
+Fixed error in vars that caused ntp to fail
 
 Requirements
 ------------
@@ -27,6 +28,7 @@ Examples
 	    - role: ntp
 	      ntp_config_server: [2.ubuntu.pool.ntp.org, 1.ubuntu.pool.ntp.org]
 
+
 License
 -------
 
@@ -34,6 +36,8 @@ BSD
 
 Author Information
 ------------------
+Forked from https://github.com/resmo/ansible-role-ntp
+with bits from https://github.com/geerlingguy/ansible-role-ntp
+and
+https://github.com/knopki/ansible-timezone
 
-- Benno Joy
-- René Moser

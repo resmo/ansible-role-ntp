@@ -1,3 +1,9 @@
 ---
+
+# handlers file for ntp
+
 - name: restart ntp
-  service: name={{ ntp_service_name }} state=restarted
+  service: name={{ ntp_daemon}} state=restarted
+
+- name: timezone.update
+  command: dpkg-reconfigure --frontend noninteractive tzdata

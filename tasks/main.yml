@@ -1,24 +1,80 @@
 ---
-- name: Add the OS specific variables
+# tasks file for ntp
+
+# Use template in place of copy to be idempotent
+- name: NTP | "Set /etc/timezone to { system_timezone }"
+  template:
+    src: timezone.j2
+    dest: /etc/timezone
+    owner: root
+    group: root
+    mode: 0644
+    backup: "{{ backup_etc_files }}"
+  tags: [configuration,timezone,ntp]
+  notify:
+    - timezone.update
+
+- name: Set Local Time to timezone
+  copy:
+    src: /usr/share/zoneinfo/{{ ntp_timezone }}
+    dest: /etc/localtime
+    owner: root
+    group: root
+    mode: 0644
+    backup: "{{ backup_etc_files }}"
+  when: ansible_os_family == "Debian"
+  tags: [configuration,timezone]
+
+
+- name: NTP | Add the OS specific variables
   include_vars: '{{ ansible_os_family }}.yml'
-  tags: [ 'configuration', 'package', 'service', 'ntp' ]
+  tags: [configuration,ntp]
 
-- name: Install the required packages in Redhat derivatives
-  yum: name=ntp state={{ ntp_pkg_state }}
+- name: NTP | Install the required packages in Redhat derivatives
+  yum:
+    name: ntp
+    state: "{{ ntp_pkg_state }}"
   when: ansible_os_family == 'RedHat'
-  tags: [ 'package', 'ntp' ]
+  tags: [configuration,ntp]
 
-- name: Install the required packages in Debian derivatives
-  apt: name=ntp state={{ ntp_pkg_state }}
+- name: NTP | Install the required packages in Debian derivatives
+  apt:
+    name: ntp
+    state: "{{ ntp_pkg_state }}"
   when: ansible_os_family == 'Debian'
-  tags: [ 'package', 'ntp' ]
+  tags: [configuration,ntp]
 
-- name: Copy the ntp.conf template file
-  template: src=ntp.conf.j2 dest=/etc/ntp.conf
+- name: NTP | Copy the ntp.conf template file
+  template:
+    src: ntp.conf.j2
+    dest: /etc/ntp.conf
   notify:
   - restart ntp
-  tags: [ 'configuration', 'package', 'ntp' ]
+  tags: [configuration,ntp]
 
-- name: Start/stop ntp service
-  service: name={{ ntp_service_name }} state={{ ntp_service_state }} enabled={{ ntp_service_enabled }} pattern='/ntpd'
-  tags: [ 'service', 'ntp' ]
+#- name: NTP | Ensure NTP system start status is set.
+#  service:
+#      name: "{{ ntp_daemon }}"
+#      state: "{{ ntp_service_state }}"
+#      enabled: "{{ ntp_service_enabled }}"
+#      pattern: '/ntpd'
+#  register: ntp
+#  when: ntp_enabled
+#  tags: [configuration,ntp]
+
+- name: Ensure NTP is running and enabled at system start.
+  service: >
+    name={{ ntp_daemon }}
+    state=started
+    enabled=yes
+  when: ntp_enabled
+
+- name: Ensure NTP is stopped and disabled at system start.
+  service: >
+    name={{ ntp_daemon }}
+    state=stopped
+    enabled=no
+  when: not ntp_enabled
+  tags: [configuration,ntp]
+
+

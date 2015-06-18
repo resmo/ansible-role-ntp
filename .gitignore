@@ -1,2 +1,13 @@
-vagrant*
+docroot
+/tmp
+.DS_Store
+._*
+*.zip
+*.gz
 .vagrant
+*.log
+*.tar
+*.pyc
+debugvars
+vm
+*.json

@@ -1,7 +1,8 @@
----
+
 galaxy_info:
-  author: "René Moser"
-  license: BSD
+  author: "George Boobyer (forked from - René Moser)"
+  company: Blue-Bag Ltd
+  license: "license (BSD, MIT)"
   min_ansible_version: 1.4
   platforms:
    - name: EL
