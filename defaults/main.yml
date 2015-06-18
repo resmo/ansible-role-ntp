@@ -38,6 +38,7 @@ ntp_config_controlkey: false
 ntp_config_broadcast: false
 ntp_config_broadcastclient: false
 ntp_config_multicastclient: false
+ntp_config_tinker_panic_enabled: false
 
 # defaults file for timezone
 ntp_timezone: "Europe/London"

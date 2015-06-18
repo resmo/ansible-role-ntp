@@ -1,5 +1,9 @@
 # {{ ansible_managed }}
 
+{% if ntp_config_tinker_panic_enabled %}
+tinker panic 0
+{% endif %}
+
 driftfile {{ ntp_config_driftfile }}
 
 {% for server in ntp_config_server %}
