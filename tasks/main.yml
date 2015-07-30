@@ -14,17 +14,25 @@
   notify:
     - timezone.update
 
-- name: Set Local Time to timezone
-  copy:
-    src: /usr/share/zoneinfo/{{ ntp_timezone }}
-    dest: /etc/localtime
-    owner: root
-    group: root
-    mode: 0644
-    backup: "{{ backup_etc_files }}"
-  when: ansible_os_family == "Debian"
-  tags: [configuration,timezone]
+# Check if the localtime is a link and if not remove
 
+- stat: path=/etc/localtime
+  register: st
+
+- debug: msg="{{ st }}"
+
+# https://github.com/ansible/ansible/issues/2098
+- name: symlink the correct localtime - 1
+  file:
+    path: /etc/localtime
+    state: absent
+  when: st.stat.islnk is defined and not st.stat.islnk
+
+- name: symlink the correct localtime - 2
+  file:
+    src: "/usr/share/zoneinfo/{{ ntp_timezone }}"
+    dest: /etc/localtime
+    state: link
 
 - name: NTP | Add the OS specific variables
   include_vars: '{{ ansible_os_family }}.yml'
