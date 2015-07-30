@@ -3,6 +3,11 @@
   include_vars: '{{ ansible_os_family }}.yml'
   tags: [ 'configuration', 'package', 'service', 'ntp' ]
 
+- name: Install required packages for SELinux in Redhat derivatives
+  yum: name=libselinux-python state=present
+  when: ansible_os_family == 'RedHat'
+  tags: [ 'package', 'ntp', 'selinux' ]
+  
 - name: Install the required packages in Redhat derivatives
   yum: name=ntp state={{ ntp_pkg_state }}
   when: ansible_os_family == 'RedHat'
