@@ -31,11 +31,11 @@ crypto
 {% endif %}
 
 {% if ntp_config_includefile %}
-includefile  {{ ntp_config_includefile }}
+includefile  {{ ntp_config_includefile_path }}
 {% endif %}
 
 {% if ntp_config_keys %}
-keys {{ ntp_config_keys }}
+keys {{ ntp_config_keys_path }}
 {% endif %}
 
 {% if ntp_config_trustedkey %}
@@ -61,3 +61,8 @@ broadcastclient
 {% if ntp_config_multicastclient %}
 multicastclient {{ ntp_config_multicastclient }}
 {% endif %}
+
+{% if ntp_config_disablemonitor %}
+disable monitor
+{% endif %}
+
