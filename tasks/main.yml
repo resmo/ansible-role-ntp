@@ -10,6 +10,7 @@
     group: root
     mode: 0644
     backup: "{{ backup_etc_files }}"
+  when: ansible_os_family == "Debian"
   tags: [configuration,timezone,ntp]
   notify:
     - timezone.update
@@ -18,8 +19,11 @@
 
 - stat: path=/etc/localtime
   register: st
+  tags: [configuration,ntp]
+
 
 - debug: msg="{{ st }}"
+  tags: [configuration,ntp]
 
 # https://github.com/ansible/ansible/issues/2098
 - name: symlink the correct localtime - 1
@@ -27,12 +31,24 @@
     path: /etc/localtime
     state: absent
   when: st.stat.islnk is defined and not st.stat.islnk
+  tags: [configuration,ntp]
+
 
 - name: symlink the correct localtime - 2
   file:
     src: "/usr/share/zoneinfo/{{ ntp_timezone }}"
     dest: /etc/localtime
     state: link
+  tags: [configuration,ntp]
+
+
+- name: update the (hardware) clock config
+  lineinfile: dest=/etc/sysconfig/clock
+              regexp=^ZONE=
+              line=ZONE={{ ntp_timezone }}
+              state=present
+  when: ansible_os_family == "RedHat"
+  tags: [configuration,ntp]
 
 - name: NTP | Add the OS specific variables
   include_vars: '{{ ansible_os_family }}.yml'
