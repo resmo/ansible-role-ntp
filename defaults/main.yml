@@ -41,6 +41,7 @@ ntp_config_broadcast: false
 ntp_config_broadcastclient: false
 ntp_config_multicastclient: false
 ntp_config_tinker_panic_enabled: false
+# see https://isc.sans.org/forums/diary/NTP+reflection+attack/17300
 ntp_config_disablemonitor: true
 
 # defaults file for timezone
