@@ -61,3 +61,7 @@ broadcastclient
 {% if ntp_config_multicastclient %}
 multicastclient {{ ntp_config_multicastclient }}
 {% endif %}
+
+{% for disable in ntp_config_disable %}
+disable {{ disable }}
+{% endfor %}

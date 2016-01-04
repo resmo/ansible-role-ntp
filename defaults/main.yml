@@ -10,6 +10,9 @@ ntp_config_restrict:
 - '127.0.0.1'
 - '::1'
 
+ntp_config_disable:
+- 'monitor'
+
 ntp_config_listen: []
 
 ntp_config_filegen:
