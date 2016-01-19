@@ -69,3 +69,7 @@ multicastclient {{ ntp_config_multicastclient }}
 {% for disable in ntp_config_disable %}
 disable {{ disable }}
 {% endfor %}
+
+{% if ntp_config_leapfile %}
+leapfile {{ ntp_config_leapfile }}
+{% endif %}

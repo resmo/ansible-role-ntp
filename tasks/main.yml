@@ -13,6 +13,21 @@
   when: ansible_os_family == 'Debian'
   tags: [ 'package', 'ntp' ]
 
+- name: Download leap-seconds file
+  get_url:
+    url: "{{ ntp_leap_seconds_url }}"
+    dest: "{{ ntp_config_ntpd_dir }}{{ ntp_leap_seconds_url.split('/')|last }}"
+  when: ntp_leap_seconds_url != ''
+  register: leap_seconds_download
+  notify:
+  - restart ntp
+  tags: [ 'configuration', 'package', 'ntp' ]
+
+- name: Update leapfile variable
+  set_fact: ntp_config_leapfile={{leap_seconds_download.dest}}
+  when: leap_seconds_download.dest is defined
+  tags: [ 'configuration', 'package', 'ntp' ]
+
 - name: Copy the ntp.conf template file
   template: src=ntp.conf.j2 dest=/etc/ntp.conf
   notify:

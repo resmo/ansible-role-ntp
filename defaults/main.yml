@@ -3,6 +3,12 @@ ntp_pkg_state: 'installed'
 ntp_service_state: 'started'
 ntp_service_enabled: 'yes'
 
+# set this in order to fetch a leapseconds file and pass it as leapfile to ntpd
+# latest source is: http://www.ietf.org/timezones/data/leap-seconds.list?3676060800
+# include a cache buster so we can use that to determine if it changed based on
+# filename
+ntp_leap_seconds_url: ''
+
 ntp_config_server: [ '0.pool.ntp.org', '1.pool.ntp.org', '2.pool.ntp.org', '3.pool.ntp.org' ]
 ntp_config_restrict:
 - '-4 default kod notrap nomodify nopeer noquery'
@@ -32,3 +38,6 @@ ntp_config_broadcastclient: ''
 ntp_config_multicastclient: ''
 ntp_config_tinker_panic_enabled: ''
 ntp_config_ignore_wildcard: ''
+
+# this doesn't need to be set if you're using ntp_leap_seconds_url
+ntp_config_leapfile: ''

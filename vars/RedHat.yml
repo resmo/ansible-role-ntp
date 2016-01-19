@@ -1,3 +1,4 @@
 ---
 ntp_service_name: ntpd
-ntp_config_driftfile: /var/lib/ntp/drift
+ntp_config_ntpd_dir: /var/lib/ntp/
+ntp_config_driftfile: "{{ ntp_config_ntpd_dir }}drift"
