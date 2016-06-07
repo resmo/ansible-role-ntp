@@ -44,7 +44,6 @@
   sudo: true
   tags: [configuration,ntp]
 
-  tags: [site_setup]
 - name: update the (hardware) clock config
   lineinfile: dest=/etc/sysconfig/clock
               regexp=^ZONE=
