@@ -30,7 +30,7 @@
   file:
     path: "/etc/localtime"
     state: absent
-  sudo: true
+  become: true
   when: st.stat.islnk is defined and not st.stat.islnk
   tags: [configuration,ntp]
 
@@ -41,7 +41,7 @@
     dest: "/etc/localtime"
     state: link
     force: yes
-  sudo: true
+  become: true
   tags: [configuration,ntp]
 
 - name: update the (hardware) clock config
