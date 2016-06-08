@@ -22,8 +22,8 @@
   tags: [configuration,ntp]
 
 
-- debug: msg="{{ st }}"
-  tags: [configuration,ntp]
+# - debug: msg="{{ st }}"
+#   tags: [configuration,ntp]
 
 # https://github.com/ansible/ansible/issues/2098
 - name: remove the symlink to the correct localtime - 1
