@@ -4,7 +4,9 @@
 tinker panic 0
 {% endif %}
 
+{% if ntp_config_driftfile %}
 driftfile {{ ntp_config_driftfile }}
+{% endif %}
 
 {% for server in ntp_config_server %}
 server {{ server }}
@@ -60,4 +62,8 @@ broadcastclient
 
 {% if ntp_config_multicastclient %}
 multicastclient {{ ntp_config_multicastclient }}
+{% endif %}
+
+{% if ntp_config_leapfile %}
+leapfile {{ ntp_config_leapfile }}
 {% endif %}
