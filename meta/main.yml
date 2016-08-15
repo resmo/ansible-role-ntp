@@ -1,6 +1,6 @@
 ---
 galaxy_info:
-  author: "René Moser"
+  author: "René Moser. FreeBSD part contributed by Vladimir Botka"
   license: BSD
   min_ansible_version: 1.4
   platforms:
@@ -22,6 +22,10 @@ galaxy_info:
    - name: Debian
      versions:
       - wheezy
+   - name: FreeBSD
   categories:
    - system
+   - linux
+   - freebsd
+   - ntp
 dependencies: []
