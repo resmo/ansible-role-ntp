@@ -37,3 +37,4 @@ Author Information
 
 - Benno Joy
 - René Moser
+- [Vladimir Botka](https://botka.link) (FreeBSD support)
