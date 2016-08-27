@@ -1,5 +1,5 @@
-ntp
-===
+role-ntp ![Build Status]https://travis-ci.org/vbotka/ansible-role-ntp.svg?branch=master
+========
 
 This role enables users to install and configure ntp on their hosts.
 
