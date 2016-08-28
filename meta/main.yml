@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: "René Moser. FreeBSD part contributed by Vladimir Botka"
-  github_branch: release
+  github_branch: master
   license: BSD
   min_ansible_version: 1.4
   platforms:
@@ -24,7 +24,9 @@ galaxy_info:
      versions:
       - wheezy
    - name: FreeBSD
-  categories:
+     versions:
+      - all
+  galaxy_tags:
    - system
    - linux
    - freebsd
