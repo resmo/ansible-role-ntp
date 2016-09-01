@@ -1,5 +1,5 @@
 ---
-ntp_service_name: ntpd
+ntp_service_name: 'ntpd'
 ntp_config_driftfile: ''
 ntp_config_leapfile: '/var/db/ntpd.leap-seconds.list'
 
