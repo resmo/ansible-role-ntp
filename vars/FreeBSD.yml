@@ -1,0 +1,19 @@
+---
+ntp_service_name: 'ntpd'
+ntp_config_driftfile: ''
+ntp_config_leapfile: '/var/db/ntpd.leap-seconds.list'
+
+ntp_config_server:
+  - '0.freebsd.pool.ntp.org iburst'
+  - '1.freebsd.pool.ntp.org iburst'
+  - '2.freebsd.pool.ntp.org iburst'
+
+ntp_config_restrict:
+  - 'default limited kod nomodify notrap nopeer noquery'
+  - '-6 default limited kod nomodify notrap nopeer noquery'
+  - '127.0.0.1'
+  - '-6 ::1'
+  - '127.127.1.0'
+
+ntp_config_filegen: []
+ntp_config_statistics: ''

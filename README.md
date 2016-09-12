@@ -1,9 +1,11 @@
-ntp
-===
+role-ntp
+========
 
-[![Build Status](https://travis-ci.org/resmo/ansible-role-ntp.png?branch=master)](https://travis-ci.org/resmo/ansible-role-ntp)
+[![Build Status](https://travis-ci.org/vbotka/ansible-role-ntp.svg?branch=master)](https://travis-ci.org/vbotka/ansible-role-ntp)
 
-This role enables users to install and configure ntp on their hosts.
+Ansible role. Install and configure ntp.
+
+https://galaxy.ansible.com/vbotka/ansible-role-ntp/
 
 Requirements
 ------------
@@ -37,3 +39,4 @@ Author Information
 
 - Benno Joy
 - René Moser
+- [Vladimir Botka](https://botka.link) (FreeBSD support)
