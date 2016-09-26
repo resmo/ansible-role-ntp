@@ -61,3 +61,10 @@ broadcastclient
 {% if ntp_config_multicastclient %}
 multicastclient {{ ntp_config_multicastclient }}
 {% endif %}
+
+{% if ntp_config_logfile %}
+logfile {{ ntp_config_logfile }}
+{% endif %}
+{% if ntp_config_logconfig %}
+logconfig {{ ntp_config_logconfig }}
+{% endif %}
