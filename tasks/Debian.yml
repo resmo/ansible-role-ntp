@@ -1,0 +1,7 @@
+---
+  # Needed due to incapability of ansible to update the cache with the apt command
+- name: Update apt cache manually
+  command: apt update
+
+- name: Install the required packages in Debian derivatives
+  apt: name=ntp update_cache=yes
