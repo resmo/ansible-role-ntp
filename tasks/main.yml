@@ -3,6 +3,11 @@
   include_vars: '{{ ansible_os_family }}.yml'
   tags: [ 'configuration', 'package', 'service', 'ntp' ]
 
+- name: Remove chrony from RedHat 7 Installations to prevent conflict.
+  yum: name=chrony state=absent
+  when: ansible_os_family == "RedHat" and ansible_lsb.major_release|int >= 7
+  tags: [ 'package', 'ntp' ]
+  
 - name: Install the required packages in Redhat derivatives
   yum: name=ntp state={{ ntp_pkg_state }}
   when: ansible_os_family == 'RedHat'

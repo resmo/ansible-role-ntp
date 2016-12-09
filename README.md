@@ -1,7 +1,7 @@
 ntp
 ===
 
-[![Build Status](https://travis-ci.org/resmo/ansible-role-ntp.png?branch=master)](https://travis-ci.org/resmo/ansible-role-ntp)
+[![Build Status](https://travis-ci.org/ericsysmin/ansible-role-ntp.png?branch=master)](https://travis-ci.org/ericsysmin/ansible-role-ntp)
 
 This role enables users to install and configure ntp on their hosts.
 
@@ -37,3 +37,4 @@ Author Information
 
 - Benno Joy
 - René Moser
+- Eric Anderson
