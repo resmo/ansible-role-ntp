@@ -18,13 +18,13 @@ Examples
 
 	- hosts: all
 	  roles:
-	    - role: ntp
+	    - role: ansible-role-ntp
 
 2) Install ntp and set some custom servers.
 
 	- hosts: all
 	  roles:
-	    - role: ntp
+	    - role: ansible-role-ntp
 	      ntp_config_server: [2.ubuntu.pool.ntp.org, 1.ubuntu.pool.ntp.org]
 
 License
