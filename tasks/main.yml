@@ -7,18 +7,20 @@
   yum: name=ntp state={{ ntp_pkg_state }}
   when: ansible_os_family == 'RedHat'
   tags: [ 'package', 'ntp' ]
+  notify: restart ntp
 
 - name: Install the required packages in Debian derivatives
   apt: name=ntp state={{ ntp_pkg_state }} update_cache=yes cache_valid_time=86400
   when: ansible_os_family == 'Debian'
   tags: [ 'package', 'ntp' ]
+  notify: restart ntp
 
 - name: Copy the ntp.conf template file
   template: src=ntp.conf.j2 dest=/etc/ntp.conf
-  notify:
-  - restart ntp
   tags: [ 'configuration', 'package', 'ntp' ]
+  notify: restart ntp
 
 - name: Start/stop ntp service
-  service: name={{ ntp_service_name }} state={{ ntp_service_state }} enabled={{ ntp_service_enabled }} pattern='/ntpd'
+  service: name={{ ntp_service_name }} enabled={{ ntp_service_enabled }} pattern='/ntpd'
   tags: [ 'service', 'ntp' ]
+  notify: restart ntp
