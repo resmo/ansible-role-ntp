@@ -1,24 +1,27 @@
 ---
-- name: Add the OS specific variables
-  include_vars: '{{ ansible_os_family }}.yml'
-  tags: [ 'configuration', 'package', 'service', 'ntp' ]
+# Add a fast check to speed reconfiguration
+- set_fact: NTP_PATH=/usr/bin/ntpd
+  when: ansible_os_family == "Debian"
 
-- name: Install the required packages in Redhat derivatives
-  yum: name=ntp state={{ ntp_pkg_state }}
-  when: ansible_os_family == 'RedHat'
-  tags: [ 'package', 'ntp' ]
+- set_fact: NTP_PATH=/usr/sbin/ntpd
+  when: ansible_os_family == "RedHat"
 
-- name: Install the required packages in Debian derivatives
-  apt: name=ntp state={{ ntp_pkg_state }} update_cache=yes cache_valid_time=86400
-  when: ansible_os_family == 'Debian'
-  tags: [ 'package', 'ntp' ]
+- stat: path={{NTP_PATH}}
+  register: ntp_installed
 
-- name: Copy the ntp.conf template file
-  template: src=ntp.conf.j2 dest=/etc/ntp.conf
-  notify:
-  - restart ntp
-  tags: [ 'configuration', 'package', 'ntp' ]
+- block:
+  - name: Add the OS specific variables
+    include_vars: '{{ ansible_os_family }}.yml'
 
-- name: Start/stop ntp service
-  service: name={{ ntp_service_name }} state={{ ntp_service_state }} enabled={{ ntp_service_enabled }} pattern='/ntpd'
-  tags: [ 'service', 'ntp' ]
+  - name: Add the OS specific packages
+    include: '{{ ansible_os_family }}.yml'
+
+  - name: Copy the ntp.conf template file
+    template: src=ntp.conf.j2 dest=/etc/ntp.conf
+    notify:
+    - restart ntp
+
+  - name: Start/stop ntp service
+    service: name={{ ntp_service_name }} state={{ ntp_service_state }} enabled={{ ntp_service_enabled }} pattern='/ntpd'
+
+  when: not ntp_installed.stat.exists

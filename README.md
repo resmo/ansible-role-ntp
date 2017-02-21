@@ -1,7 +1,8 @@
+[![License](https://img.shields.io/badge/license-bsd-red.svg)](https://www.freebsd.org/copyright/license.html)
+[![Build Status](https://travis-ci.org/grycap/ansible-role-ntp.svg?branch=master)](https://travis-ci.org/grycap/ansible-role-ntp)
+
 ntp
 ===
-
-[![Build Status](https://travis-ci.org/resmo/ansible-role-ntp.png?branch=master)](https://travis-ci.org/resmo/ansible-role-ntp)
 
 This role enables users to install and configure ntp on their hosts.
 
@@ -27,10 +28,6 @@ Examples
 	    - role: ntp
 	      ntp_config_server: [2.ubuntu.pool.ntp.org, 1.ubuntu.pool.ntp.org]
 
-License
--------
-
-BSD
 
 Author Information
 ------------------
