@@ -1,27 +1,14 @@
 ---
-# Add a fast check to speed reconfiguration
-- set_fact: NTP_PATH=/usr/bin/ntpd
-  when: ansible_os_family == "Debian"
+- name: Add the OS specific variables
+  include_vars: '{{ ansible_os_family }}.yml'
 
-- set_fact: NTP_PATH=/usr/sbin/ntpd
-  when: ansible_os_family == "RedHat"
+- name: Add the OS specific packages
+  include: '{{ ansible_os_family }}.yml'
 
-- stat: path={{NTP_PATH}}
-  register: ntp_installed
+- name: Copy the ntp.conf template file
+  template: src=ntp.conf.j2 dest=/etc/ntp.conf
+  notify:
+  - restart ntp
 
-- block:
-  - name: Add the OS specific variables
-    include_vars: '{{ ansible_os_family }}.yml'
-
-  - name: Add the OS specific packages
-    include: '{{ ansible_os_family }}.yml'
-
-  - name: Copy the ntp.conf template file
-    template: src=ntp.conf.j2 dest=/etc/ntp.conf
-    notify:
-    - restart ntp
-
-  - name: Start/stop ntp service
-    service: name={{ ntp_service_name }} state={{ ntp_service_state }} enabled={{ ntp_service_enabled }} pattern='/ntpd'
-
-  when: not ntp_installed.stat.exists
+- name: Start/stop ntp service
+  service: name={{ ntp_service_name }} state={{ ntp_service_state }} enabled={{ ntp_service_enabled }} pattern='/ntpd'
