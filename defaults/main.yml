@@ -15,13 +15,13 @@ ntp_config_server:
   - 1.debian.pool.ntp.org iburst
 
 ntp_config_restrict:
-- '-4 default kod notrap nomodify nopeer noquery'
-- '-6 default kod notrap nomodify nopeer noquery'
+- '-4 default notrap nomodify nopeer noquery'
+- '-6 default notrap nomodify nopeer noquery'
 - '127.0.0.1'
 - '::1'
 
-ntp_config_listen:
-- '127.0.0.1'
+ntp_config_listen: []
+# - '127.0.0.1'
 
 ntp_config_filegen:
 - 'loopstats file loopstats type day enable'
