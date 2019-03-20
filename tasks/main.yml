@@ -22,3 +22,14 @@
 - name: Start/stop ntp service
   service: name={{ ntp_service_name }} state={{ ntp_service_state }} enabled={{ ntp_service_enabled }} pattern='/ntpd'
   tags: [ 'service', 'ntp' ]
+
+- name: Populate service facts
+  service_facts:
+
+- name: Disable/stop blacklisted services
+  service: name={{ service }} state='stopped' enabled='no'
+  tags: [ 'service', 'ntp' ]
+  when: service in ansible_facts.services
+  loop_control:
+    loop_var: service
+  loop: "{{ ntp_service_blacklist }}"

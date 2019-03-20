@@ -1,3 +1,6 @@
 ---
 ntp_service_name: ntpd
+ntp_service_blacklist_default:
+  - chronyd.service
+
 ntp_config_driftfile: /var/lib/ntp/drift
