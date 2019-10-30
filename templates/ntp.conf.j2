@@ -1,4 +1,4 @@
-# {{ ansible_managed }}
+# {{ ansible_managed | comment }}
 
 {% if ntp_config_tinker_panic_enabled %}
 tinker panic 0
@@ -65,4 +65,3 @@ multicastclient {{ ntp_config_multicastclient }}
 {% if ntp_config_disablemonitor %}
 disable monitor
 {% endif %}
-
